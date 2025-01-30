@@ -1,0 +1,27 @@
+<nav class="top-navigation">
+  <div class="left">
+    <button (click)="goToProduct()">Eshop</button>
+  </div>
+
+  <div class="right">
+    <!-- display order and cart for logged in users only -->
+     <ng-container *ngIf="isLoggedIn ; else loginTemplate">
+      <span class="nav-item" (click)="goToOrder()">Orders</span>
+      <span class="nav-item" (click)="goToCart()">Cart</span>
+      <el-dropdown>
+        <span class="name">Hello, {{userInfo.firstName}}</span>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item (click)="updatePassword()">Change Password</el-dropdown-item>
+            <el-dropdown-item (click)="logout()">Log out</el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+     </ng-container>
+
+    <!-- display login/register if not logged in -->
+    <ng-template #loginTemplate>
+      <span class="nav-item" (click)="goToLogin()">Login / Register</span>
+    </ng-template>
+  </div>
+</nav>

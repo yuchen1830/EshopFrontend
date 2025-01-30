@@ -1,0 +1,42 @@
+.product-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .category-sidebar {
+    width: 200px;
+    background: #f8f8f8;
+    padding: 15px;
+    border-radius: 8px;
+  
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+  
+    li {
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  
+    li:hover, li.active {
+      background: #007bff;
+      color: white;
+    }
+  }
+  
+  .product-list {
+    flex-grow: 1;
+    display: grid;
+    gap: 15px;
+  }
+  
+  .product-item {
+    padding: 15px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  

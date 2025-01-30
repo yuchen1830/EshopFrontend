@@ -1,0 +1,36 @@
+<div class="login-body">
+  <div class="bg"></div>
+  <div class="login-panel">
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+      <div class="login-title">Easy Drive</div>
+      
+      <!-- login -->
+      <div *ngIf="opType === 1">
+        <input type="email" name="email" [(ngModel)]="formData.email" placeholder="Email" required />
+        <input type="password" name="password" [(ngModel)]="formData.password" placeholder="Password" required *ngIf="opType === 1" />
+      </div>
+      
+      <!-- register or reset password -->
+      <div *ngIf="opType === 0 || opType === 2">
+        <input type="text" name="emailCode" [(ngModel)]="formData.emailCode" placeholder="Email Code" required />
+        <button type="button" (click)="getEmailCode()">Send Verification Code</button>
+        <input type="text" name="firstName" [(ngModel)]="formData.firstName" placeholder="firstName" required *ngIf="opType === 0" />
+        <input type="text" name="lastName" [(ngModel)]="formData.lastName" placeholder="lastName" required *ngIf="opType === 0" />
+        <input type="password" name="createPassword" [(ngModel)]="formData.createPassword" placeholder="Create Password" required />
+        <input type="password" name="repeatPassword" [(ngModel)]="formData.repeatPassword" placeholder="Repeat Password" required />
+      </div>
+      
+      <input type="text" name="captcha" [(ngModel)]="formData.captcha" placeholder="Enter the answer" required />
+      <img [src]="CAPTCHA" (click)="changeCaptcha(0)" />
+      
+      <!-- confirmation button -->
+      <button type="submit" *ngIf="opType === 1">Log In</button>
+      <button type="submit" *ngIf="opType === 0">Sign Up</button>
+      <button type="submit" *ngIf="opType === 2">Confirm</button>
+
+      <!-- login drop down list -->
+       <!-- remember me/ No account-register/ forgot pass-reset -->
+
+    </form>
+  </div>
+</div>
