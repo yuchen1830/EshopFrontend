@@ -1,0 +1,23 @@
+<div class="order-container">
+  <div class="order-sidebar">
+    <ul>
+      <li (click)="fetchUserOrders()">
+        All Orders
+      </li>
+    </ul>
+  </div>
+
+  <!-- order list -->
+  <div class="order-list">
+    <h2>Your Orders ({{orders.length}})</h2>
+    <div *ngIf="orders.length === 0">No orders found</div>
+    <div class="order-card" *ngFor="let order of orders.slice().reverse()">
+      <a [routerLink]="'/orders/' + order.id" class="order-link">
+      <h3>Order #{{ order.id }}</h3>
+      <p>Date: {{ order.orderDate | date }}</p>
+      <p>Total: ${{ order.totalAmount }}</p>
+      <p>Status: {{ order.orderStatus }}</p>
+      </a>
+    </div>
+  </div>
+</div>

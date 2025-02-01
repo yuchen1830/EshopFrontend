@@ -1,5 +1,12 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+
+interface Nav{
+  link: string,
+  name: string,
+  exact: boolean
+}
 
 @Component({
   selector: 'app-top-navigation',
@@ -10,40 +17,63 @@ export class TopNavigationComponent implements OnInit {
   // @Input() userInfo: { firstName: string } = { firstName: 'Login/Register' };
   @Input() userInfo: { firstName: string } | null = null;
 
-  // display different nav-bar for different login status
-  get isLoggedIn(): boolean {
-    return this.userInfo !== null;
+  // get isLoggedIn(): boolean {
+  //   return this.userInfo !== null;
+  // }
+  isLoggedIn: boolean = true;
+  nav:Nav[] =[
+    {
+      link:'/products',
+      name:'Products',
+      exact: true
+    },
+    {
+      link:'/orders',
+      name:'Orders',
+      exact: true
+    },
+    {
+      link:'/cart',
+      name:'Cart',
+      exact: true
+    },
+  ]
+
+  // user dropdown menu
+  dropdownOpen = false; 
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+  onOptionSelect(event: Event) {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    
+    if (selectedValue === 'logout') {
+      this.logout();
+    } else if (selectedValue === 'updatePassword') {
+      this.updatePassword();
+    }
   }
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, public authService:AuthService) { }
 
-  goToLogin() {
-    this.router.navigate(['/login']);
-  }
-
-  goToProduct() {
-    this.router.navigate(['/product']);
-  }
-
-  goToOrder() {
-    this.router.navigate(['/order']);
-  }
-
-  goToCart() {
-    this.router.navigate(['/cart']);
-  }
-
-  // need implementation
   updatePassword() {
-    console.log("update pass")
+    console.log("update pass: redirect page to login")
   }
 
-  // cookie???
-  async logout() {
-    alert('Logging out...');
-    this.userInfo = null;
-    this.router.navigate(['/product']);
+  logout(){
+    this.authService.logout();
+    this.dropdownOpen = false;
   }
+
+  // async logout() {
+  //   alert('Logging out...');
+  //   console.log("user logged out")
+  //   this.isLoggedIn = false;
+  //   this.dropdownOpen = false;
+  //   // this.userInfo = null;
+    
+  //   this.router.navigate(['/products']);
+  // }
 
   ngOnInit() {
   }

@@ -1,0 +1,10 @@
+<h2>Product Details</h2>
+<div *ngIf="product">
+  <h2>{{ product.productName }}</h2>
+  <p>ID: {{ product.id }}</p>
+  <p>Price: ${{ product.price }}</p>
+  <p>Description: {{ product.description }}</p>
+  <button>Add to Cart</button>
+</div>
+
+<button (click)="goBack()">← Back to Products List</button>

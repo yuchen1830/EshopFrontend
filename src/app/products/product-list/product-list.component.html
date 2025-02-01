@@ -1,0 +1,23 @@
+<div class="product-page">
+    <div class="sidebar">
+        <ul>
+            <li *ngFor="let category of categories" [class.active]="category.value === selectedCategory"
+                (click)="onCategoryChange(category.value)">
+                {{category.label}}
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="product-list">
+    <div *ngFor="let product of products" class="product-card">
+        <a  [routerLink]="'/products/' + product.id" class="product-link">
+            <div class="product-info">
+                <h3> {{ product.productName }}</h3>
+                <p>Product ID: {{ product.id }}</p>
+                <p> ${{product.price}}</p>
+                <p> {{product.description}}</p>
+            </div>
+        </a>
+        <button>Add to Cart</button>
+    </div>
+</div>

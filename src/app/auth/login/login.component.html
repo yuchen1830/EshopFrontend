@@ -2,7 +2,7 @@
   <div class="bg"></div>
   <div class="login-panel">
     <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
-      <div class="login-title">Easy Drive</div>
+      <div class="login-title">Login here</div>
       
       <!-- login -->
       <div *ngIf="opType === 1">
@@ -24,7 +24,8 @@
       <img [src]="CAPTCHA" (click)="changeCaptcha(0)" />
       
       <!-- confirmation button -->
-      <button type="submit" *ngIf="opType === 1">Log In</button>
+      <!-- <button type="submit" *ngIf="opType === 1">Log In</button> -->
+      <button type="submit" *ngIf="opType === 1" (click)="login()">Log In as User 2</button>
       <button type="submit" *ngIf="opType === 0">Sign Up</button>
       <button type="submit" *ngIf="opType === 2">Confirm</button>
 

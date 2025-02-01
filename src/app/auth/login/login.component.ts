@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import {md5} from 'js-md5';
+import { AuthService } from 'src/app/services/auth.service';
+import { md5 } from 'js-md5';
 
 @Component({
   selector: 'app-Login',
-  templateUrl: './Login.component.html',
-  styleUrls: ['./Login.component.scss']
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
   opType = 1; // 0: register, 1: login, 2: reset password
@@ -19,7 +20,14 @@ export class LoginComponent implements OnInit {
   REGISTER = './api/users/register'
   RESET_PASSWORD='./api/users/resetPassword'
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient, private authService: AuthService) { }
+
+  // hardcoded login
+  login() {
+    this.authService.login(2); // Set user ID to 2
+    this.router.navigate(['/products']); // Redirect after login
+  }
+
 
   ngOnInit() : void{
     this.showPanel(1);
@@ -51,7 +59,7 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  // use cookie service???
+  // use cookie 
   onSubmit(){
     if(this.opType === 1) {
       // login

@@ -1,0 +1,19 @@
+<div class="order-detail" >
+  <h2>jjj</h2>
+  <h2>Order #{{order.id}} Details:</h2>
+  <p>Date: {{ order.orderDate | date }}</p>
+  <p>Total: ${{ order.totalAmount }}</p>
+  <p>Status: {{ order.orderStatus }}</p>
+  <p>Address: {{order.address}}</p>
+
+  <h3>Items:</h3>
+  <ul>
+    <li *ngFor="let item of order.orderItems">
+      <p>Product: {{ item.productName }}</p>
+      <p>Quantity: {{ item.quantity }}</p>
+      <p>Unit Price: ${{ item.unitPrice }}</p>
+    </li>
+  </ul>
+
+  <button (click)="goBack()">Back to Orders</button>
+</div>
