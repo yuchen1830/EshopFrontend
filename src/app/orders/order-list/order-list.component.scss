@@ -24,6 +24,7 @@
 
   li:hover,
   li.active {
+    font-weight: bold;
     background: #007bff;
     color: white;
   }
@@ -49,6 +50,7 @@
 .order-card {
   padding: 15px;
   background: white;
+  border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;

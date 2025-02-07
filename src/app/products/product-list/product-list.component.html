@@ -7,17 +7,22 @@
             </li>
         </ul>
     </div>
-</div>
-<div class="product-list">
-    <div *ngFor="let product of products" class="product-card">
-        <a  [routerLink]="'/products/' + product.id" class="product-link">
-            <div class="product-info">
-                <h3> {{ product.productName }}</h3>
-                <p>Product ID: {{ product.id }}</p>
-                <p> ${{product.price}}</p>
-                <p> {{product.description}}</p>
-            </div>
-        </a>
-        <button>Add to Cart</button>
+
+    <div class="product-list">
+        <div *ngFor="let product of products" class="product-card">
+            <a [routerLink]="'/products/' + product.id" class="product-link">
+                <div class="product-info">
+                    <h3> {{ product.productName || 'Loading...' }} </h3>
+                    <p> {{ product.category }}</p>
+                    <!-- <p>Product ID: {{ product.id }}</p> -->
+                    <p> ${{product.price}}</p>
+                    <p> {{product.description}}</p>
+                </div>
+            </a>
+            <button (click)="addProduct(product.id)">Add to Cart</button>
+        </div>
     </div>
 </div>
+
+
+<div *ngIf="userMessage" class="popup-message">{{userMessage}}</div>

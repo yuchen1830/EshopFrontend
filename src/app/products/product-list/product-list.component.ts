@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductService} from 'src/app/services/product.service'
+import { AuthService } from 'src/app/services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
+import { ProductService } from 'src/app/services/product.service'
 
 @Component({
   selector: 'app-product-list',
@@ -8,17 +10,21 @@ import {ProductService} from 'src/app/services/product.service'
 })
 export class ProductListComponent implements OnInit {
   categories = [
-    { value: 'all', label: 'All' },
+    { value: 'ALL', label: 'All' },
     { value: 'ELECTRONICS', label: 'Electronics' },
     { value: 'CLOTHING', label: 'Clothing' },
     { value: 'FOOD', label: 'Food' },
     { value: 'HOME', label: 'Home' },
     { value: 'TOYS', label: 'Toys' }
   ];
-  selectedCategory = 'all'; // default
+  selectedCategory = 'ALL'; // default
   products: any[] = [];
+  userMessage: string = '';
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService,
+    private cartService: CartService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
     this.fetchProducts();
@@ -26,6 +32,7 @@ export class ProductListComponent implements OnInit {
 
   fetchProducts() {
     console.log("fetch product");
+    console.log(this.selectedCategory)
     this.productService.getProducts(this.selectedCategory).subscribe(
       (data) => {
         console.log(data);
@@ -34,11 +41,35 @@ export class ProductListComponent implements OnInit {
     );
   }
 
-  onCategoryChange(category: string):void {
+  onCategoryChange(category: string): void {
+    console.log("category changes")
     if (this.selectedCategory !== category) {
       this.selectedCategory = category;
       this.fetchProducts();
     }
   }
 
+  addProduct(productId: string) {
+    const userId = this.authService.getUserId() || 2;
+    console.log(userId);
+    if (!userId) {
+      this.showMessage('Please log in to add products to the cart.', 'warning');
+      return;
+    }
+
+    this.cartService.addProduct(userId, productId).subscribe(
+      () => {
+        this.showMessage('Product added to cart successfully!', 'success');
+      }, (error) => {
+        this.showMessage('Failed to add product to cart.', 'error');
+      }
+    );
+  }
+
+  showMessage(message: string, type: 'success' | 'error' |'warning') {
+    this.userMessage = message;
+    setTimeout(()=> {
+      this.userMessage = '';
+    }, 2000);
+  }
 }

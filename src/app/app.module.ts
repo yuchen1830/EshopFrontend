@@ -9,7 +9,7 @@ import { ProductsModule } from './products/products.module';
 import { OrdersModule } from './orders/orders.module';
 import { AuthModule } from './auth/auth.module';
 import { BaseModule } from './base/base.module';
-
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [				
@@ -23,7 +23,8 @@ import { BaseModule } from './base/base.module';
     BaseModule,
     AuthModule,
     ProductsModule,
-    OrdersModule
+    OrdersModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
